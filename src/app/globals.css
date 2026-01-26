@@ -44,3 +44,20 @@
 .animate-blob {
   animation: blob 7s infinite;
 }
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* Blanc */
+    --foreground: 222.2 84% 4.9%; /* Noir très sombre */
+    --radius: 0.5rem;
+  }
+  
+  .dark {
+    --background: 222.2 84% 4.9%; /* Bleu nuit très sombre */
+    --foreground: 210 40% 98%; /* Blanc cassé */
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
