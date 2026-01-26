@@ -1,0 +1,7 @@
+"<!-- SVG placeholder pour les screenshots -->
+<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
+  <rect width='800' height='600' fill='#f3f4f6'/>
+  <rect x='100' y='100' width='600' height='400' fill='#d1d5db'/>
+  <circle cx='400' cy='300' r='50' fill='#3b82f6'/>
+  <text x='400' y='300' text-anchor='middle' fill='white' font-family='Arial' font-size='24'>Screenshot</text>
+</svg>" 

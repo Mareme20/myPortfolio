@@ -34,3 +34,38 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+"# Portfolio Étudiant en Génie Logiciel
+
+Portfolio moderne développé avec Next.js 14, TypeScript, Tailwind CSS et Framer Motion.
+
+## 🚀 Technologies
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Docker
+- Vercel
+
+## 📦 Installation
+
+\`\`\`bash
+# Clone du projet
+git clone https://github.com/votreusername/portfolio.git
+cd portfolio
+
+# Installation des dépendances
+npm install
+
+# Développement
+npm run dev
+
+# Build pour production
+npm run build
+
+# Docker
+npm run docker:dev
+\`\`\`
+
+## 🌐 Déploiement
+
+Le projet est configuré pour être déployé sur Vercel en un clic." 
