@@ -32,7 +32,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center space-x-2">
             <Code2 className="h-8 w-8 text-primary dark:text-primary" />
             <span className="text-xl font-bold text-gray-900 dark:text-white">
-              VotreNom
+              MarièmeNdiaye
             </span>
           </Link>
 

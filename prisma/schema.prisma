@@ -1,0 +1,130 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "postgresql"
+  // On ne met PLUS de ligne url ici
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String?
+  image         String?
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  projects      Project[]
+  blogPosts     BlogPost[]
+  
+  @@map("users")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Project {
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  description   String
+  content       String    @db.Text
+  technologies  String[]
+  githubUrl     String?
+  liveUrl       String?
+  featured      Boolean   @default(false)
+  order         Int       @default(0)
+  image         String?
+  gallery       String[]  // URLs des images
+  published     Boolean   @default(false)
+  publishedAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("projects")
+  @@index([slug])
+  @@index([published, featured])
+}
+
+model BlogPost {
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  excerpt       String
+  content       String    @db.Text
+  coverImage    String?
+  tags          String[]
+  published     Boolean   @default(false)
+  publishedAt   DateTime?
+  views         Int       @default(0)
+  likes         Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("blog_posts")
+  @@index([slug])
+  @@index([published, publishedAt])
+}
+
+model Skill {
+  id            String    @id @default(cuid())
+  name          String
+  category      String    // frontend, backend, tools, etc.
+  level         Int       @default(50) // 0-100
+  icon          String?   // nom de l'icône Lucide
+  order         Int       @default(0)
+  featured      Boolean   @default(false)
+  
+  @@map("skills")
+}
+
+model Experience {
+  id            String    @id @default(cuid())
+  title         String
+  company       String
+  location      String?
+  type          String    // work, education, certification
+  startDate     DateTime
+  endDate       DateTime?
+  current       Boolean   @default(false)
+  description   String
+  technologies  String[]
+  featured      Boolean   @default(false)
+  order         Int       @default(0)
+  
+  @@map("experiences")
+}
+
+model Message {
+  id            String    @id @default(cuid())
+  name          String
+  email         String
+  subject       String
+  message       String    @db.Text
+  read          Boolean   @default(false)
+  archived      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  
+  @@map("messages")
+}
+
+model Analytics {
+  id            String    @id @default(cuid())
+  page          String
+  visits        Int       @default(0)
+  uniqueVisits  Int       @default(0)
+  date          DateTime  @default(now())
+  
+  @@map("analytics")
+  @@index([page, date])
+}
