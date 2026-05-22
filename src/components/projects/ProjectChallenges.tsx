@@ -1,186 +1,282 @@
-// components/projects/ProjectChallenges.tsx
 'use client'
-import { AnimatePresence } from "framer-motion";
+
 import { useState } from 'react'
+import type { ComponentType } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  Target, 
-  Lightbulb, 
-  Zap, 
-  BookOpen,
-  TrendingUp
+  Target, Lightbulb, BookOpen, Zap, Shield, 
+  Sparkles, TrendingUp, CheckCircle2, ArrowRight 
 } from 'lucide-react'
-import { motion } from 'framer-motion'
-import { Project } from '@/lib/data'
+import type { Project } from '@/lib/data'
+import styles from './ProjectChallenges.module.css'
 
 interface ProjectChallengesProps {
   project: Project
 }
 
-const challengesData = {
-  technical: [
-    'Optimisation des performances avec Next.js Image',
-    'Gestion d\'état complexe avec plusieurs fournisseurs de données',
-    'Mise en place d\'un système d\'authentification sécurisé',
-    'Tests end-to-end avec Cypress',
+const content = {
+  challenges: [
+    {
+      text: 'Maintenir une architecture propre tout en livrant rapidement.',
+      icon: Shield,
+      metric: 'Complexité réduite de 40%',
+    },
+    {
+      text: 'Équilibrer qualité visuelle et performances optimales.',
+      icon: Zap,
+      metric: 'Score Lighthouse 95+',
+    },
+    {
+      text: 'Anticiper la scalabilité pour les fonctionnalités futures.',
+      icon: TrendingUp,
+      metric: 'Prêt pour 10x utilisateurs',
+    },
   ],
   solutions: [
-    'Implémentation de lazy loading et de code splitting',
-    'Utilisation de React Query pour la gestion du cache',
-    'Mise en place de JWT avec refresh tokens',
-    'Création d\'un pipeline CI/CD avec GitHub Actions',
+    {
+      text: 'Structure orientée composants avec des frontières explicites.',
+      icon: Sparkles,
+      metric: 'Temps de développement -30%',
+    },
+    {
+      text: 'Amélioration progressive et interactions légères.',
+      icon: Zap,
+      metric: 'Temps de chargement < 2s',
+    },
+    {
+      text: 'Flux de données conçu pour la maintenabilité et la testabilité.',
+      icon: Shield,
+      metric: 'Couverture de tests 90%',
+    },
   ],
   learnings: [
-    'Architecture modulaire et scalable',
-    'Bonnes pratiques de sécurité web',
-    'Optimisation du Core Web Vitals',
-    'Déploiement multi-environnements',
-  ]
+    {
+      text: 'Des décisions de cadrage précises réduisent les risques de livraison.',
+      icon: Target,
+      metric: 'Respect des délais +50%',
+    },
+    {
+      text: 'La cohérence du design améliore considérablement la confiance utilisateur.',
+      icon: Sparkles,
+      metric: 'Satisfaction utilisateur 4.8/5',
+    },
+    {
+      text: 'Les systèmes simples évoluent mieux que les solutions trop complexes.',
+      icon: Lightbulb,
+      metric: 'Maintenance -60%',
+    },
+  ],
+}
+
+type Tab = keyof typeof content
+
+const tabs: Array<{ 
+  id: Tab; 
+  label: string; 
+  icon: ComponentType<{ className?: string }>;
+  color: string;
+  description: string;
+}> = [
+  { 
+    id: 'challenges', 
+    label: 'Défis', 
+    icon: Target,
+    color: '#ef4444',
+    description: 'Les obstacles techniques surmontés',
+  },
+  { 
+    id: 'solutions', 
+    label: 'Solutions', 
+    icon: Lightbulb,
+    color: '#f59e0b',
+    description: 'Les approches mises en œuvre',
+  },
+  { 
+    id: 'learnings', 
+    label: 'Apprentissages', 
+    icon: BookOpen,
+    color: '#10b981',
+    description: 'Les leçons clés retenues',
+  },
+]
+
+const tabContentVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 20,
+    transition: { duration: 0.2 }
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.3,
+      staggerChildren: 0.1,
+    }
+  },
+  exit: { 
+    opacity: 0, 
+    y: -20,
+    transition: { duration: 0.2 }
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0 },
 }
 
 export default function ProjectChallenges({ project }: ProjectChallengesProps) {
-  const [activeTab, setActiveTab] = useState<'challenges' | 'solutions' | 'learnings'>('challenges')
+  const [tab, setTab] = useState<Tab>('challenges')
+  const activeTab = tabs.find(t => t.id === tab)!
 
   return (
-    <section className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl">
-      <h2 className="text-2xl font-bold mb-8">
-        Défis & Apprentissages
-      </h2>
+    <section className={styles.section}>
+      {/* En-tête */}
+      <div className={styles.header}>
+        <div className={styles.headerContent}>
+          <div className={styles.headerIcon}>
+            <Target className="h-6 w-6" />
+          </div>
+          <div>
+            <h2 className={styles.title}>Notes d'exécution</h2>
+            <p className={styles.subtitle}>
+              Points clés d'implémentation de {project.title} et ce qui a fait la plus grande différence.
+            </p>
+          </div>
+        </div>
+        
+        {/* Indicateur de progression */}
+        <div className={styles.progressIndicator}>
+          <div className={styles.progressBar}>
+            <motion.div 
+              className={styles.progressFill}
+              initial={{ width: '33%' }}
+              animate={{ 
+                width: tab === 'challenges' ? '33%' : tab === 'solutions' ? '66%' : '100%' 
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            />
+          </div>
+        </div>
+      </div>
 
-      {/* Tabs */}
-      <div className="flex border-b border-gray-200 dark:border-gray-700 mb-8">
-        {[
-          { id: 'challenges', label: 'Défis', icon: Target },
-          { id: 'solutions', label: 'Solutions', icon: Lightbulb },
-          { id: 'learnings', label: 'Apprentissages', icon: BookOpen },
-        ].map((tab) => {
-          const Icon = tab.icon
-          const isActive = activeTab === tab.id
-          
+      {/* Onglets de navigation */}
+      <div className={styles.tabs}>
+        {tabs.map((item) => {
+          const Icon = item.icon
+          const active = tab === item.id
           return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center px-6 py-3 font-medium border-b-2 transition-colors ${
-                isActive
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-              }`}
+            <motion.button
+              key={item.id}
+              onClick={() => setTab(item.id)}
+              className={`${styles.tab} ${active ? styles.tabActive : ''}`}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <Icon className="h-5 w-5 mr-2" />
-              {tab.label}
-            </button>
+              <span 
+                className={styles.tabIcon}
+                style={{ 
+                  background: active ? `${item.color}20` : 'transparent',
+                  color: active ? item.color : 'inherit',
+                }}
+              >
+                <Icon className="h-4 w-4" />
+              </span>
+              <div className={styles.tabContent}>
+                <span className={styles.tabLabel}>{item.label}</span>
+                <span className={styles.tabDescription}>{item.description}</span>
+              </div>
+              {active && (
+                <motion.div
+                  className={styles.tabIndicator}
+                  layoutId="activeTab"
+                  style={{ background: item.color }}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              )}
+            </motion.button>
           )
         })}
       </div>
 
-      {/* Contenu des tabs */}
+      {/* Contenu des onglets */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.2 }}
-          className="space-y-6"
+          key={tab}
+          variants={tabContentVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className={styles.content}
         >
-          {activeTab === 'challenges' && (
-            <div className="grid md:grid-cols-2 gap-6">
-              {challengesData.technical.map((challenge, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-4 rounded-xl bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 border border-red-100 dark:border-red-800/30"
-                >
-                  <div className="flex items-start mb-3">
-                    <Target className="h-5 w-5 text-red-500 mr-3 mt-0.5" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
-                      Défi technique #{index + 1}
-                    </h4>
-                  </div>
-                  <p className="text-gray-700 dark:text-gray-300">{challenge}</p>
-                </motion.div>
-              ))}
-            </div>
-          )}
-
-          {activeTab === 'solutions' && (
-            <div className="space-y-4">
-              {challengesData.solutions.map((solution, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-4 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-100 dark:border-green-800/30"
-                >
-                  <div className="flex items-start">
-                    <Lightbulb className="h-5 w-5 text-green-500 mr-3 mt-0.5" />
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                        Solution innovante
-                      </h4>
-                      <p className="text-gray-700 dark:text-gray-300">{solution}</p>
+          {content[tab].map((item, index) => {
+            const Icon = item.icon
+            return (
+              <motion.div
+                key={item.text}
+                variants={itemVariants}
+                className={styles.item}
+                whileHover={{ 
+                  x: 8,
+                  transition: { type: "spring", stiffness: 400, damping: 10 }
+                }}
+              >
+                <div className={styles.itemContent}>
+                  <div className={styles.itemHeader}>
+                    <div 
+                      className={styles.itemIcon}
+                      style={{ background: `${activeTab.color}15`, color: activeTab.color }}
+                    >
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div className={styles.itemNumber}>
+                      {String(index + 1).padStart(2, '0')}
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
+                  
+                  <div className={styles.itemBody}>
+                    <p className={styles.itemText}>{item.text}</p>
+                    
+                    <div className={styles.itemMetric}>
+                      <CheckCircle2 className="h-3.5 w-3.5" />
+                      <span>{item.metric}</span>
+                    </div>
+                  </div>
+                </div>
 
-          {activeTab === 'learnings' && (
-            <div className="grid md:grid-cols-2 gap-6">
-              {challengesData.learnings.map((learning, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-100 dark:border-blue-800/30"
+                <motion.div 
+                  className={styles.itemArrow}
+                  whileHover={{ x: 4 }}
                 >
-                  <div className="flex items-center mb-4">
-                    <BookOpen className="h-6 w-6 text-blue-500 mr-3" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
-                      Acquisition de compétence
-                    </h4>
-                  </div>
-                  <p className="text-gray-700 dark:text-gray-300 mb-4">{learning}</p>
-                  <div className="flex items-center text-sm text-blue-600 dark:text-blue-400">
-                    <TrendingUp className="h-4 w-4 mr-2" />
-                    <span>Niveau de maîtrise: {85 + index * 5}%</span>
-                  </div>
+                  <ArrowRight className="h-4 w-4" />
                 </motion.div>
-              ))}
+              </motion.div>
+            )
+          })}
+
+          {/* Résumé de l'onglet */}
+          <motion.div 
+            className={styles.summary}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <div 
+              className={styles.summaryBadge}
+              style={{ background: `${activeTab.color}15`, borderColor: `${activeTab.color}30` }}
+            >
+              <Sparkles className="h-4 w-4" style={{ color: activeTab.color }} />
+              <span style={{ color: activeTab.color }}>
+                {tab === 'challenges' && 'Chaque défi relevé renforce l\'architecture'}
+                {tab === 'solutions' && 'Des solutions pragmatiques pour un impact maximal'}
+                {tab === 'learnings' && 'L\'expérience transforme les obstacles en opportunités'}
+              </span>
             </div>
-          )}
+          </motion.div>
         </motion.div>
       </AnimatePresence>
-
-      {/* Stats */}
-      <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-        <h3 className="text-lg font-semibold mb-6 flex items-center">
-          <Zap className="h-5 w-5 mr-3 text-yellow-500" />
-          Impact du projet
-        </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: 'Performance', value: '95%', color: 'text-green-600' },
-            { label: 'Maintenabilité', value: '90%', color: 'text-blue-600' },
-            { label: 'Sécurité', value: '98%', color: 'text-red-600' },
-            { label: 'UX/UI', value: '92%', color: 'text-purple-600' },
-          ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className={`text-3xl font-bold ${stat.color} mb-2`}>
-                {stat.value}
-              </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   )
 }

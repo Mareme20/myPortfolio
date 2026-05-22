@@ -1,0 +1,563 @@
+/* EducationCard.module.css */
+
+/* ===== Variables ===== */
+.card {
+  --brand: 250, 85%, 65%;
+  --accent: 220, 70%, 55%;
+  
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.7)
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(200, 220, 240, 0.4);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 40px rgba(59, 130, 246, 0.08),
+    0 4px 12px rgba(59, 130, 246, 0.04);
+}
+
+:global(.dark) .card {
+  background: linear-gradient(
+    135deg,
+    rgba(20, 25, 40, 0.9),
+    rgba(15, 20, 35, 0.8)
+  );
+  border-color: rgba(59, 130, 246, 0.15);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Effet de Fond ===== */
+.backgroundGlow {
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.08) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+/* ===== En-tête ===== */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.headerIcon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.15),
+    rgba(99, 102, 241, 0.15)
+  );
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 0.75rem;
+  color: #3b82f6;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #1a1a2e;
+  margin: 0 0 0.25rem 0;
+}
+
+:global(.dark) .title {
+  color: #f0f0f5;
+}
+
+.subtitle {
+  font-size: 0.8125rem;
+  color: #6a6a8a;
+  margin: 0;
+}
+
+:global(.dark) .subtitle {
+  color: #9090a0;
+}
+
+/* ===== Formation Actuelle ===== */
+.currentEducation {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.5)
+  );
+  border: 1px solid rgba(200, 210, 230, 0.3);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+:global(.dark) .currentEducation {
+  background: linear-gradient(
+    135deg,
+    rgba(30, 35, 50, 0.8),
+    rgba(25, 30, 45, 0.6)
+  );
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.degreeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.degree {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0 0 0.5rem 0;
+}
+
+:global(.dark) .degree {
+  color: #f0f0f5;
+}
+
+.degreeInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.school {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 1rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #10b981;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ===== Détails ===== */
+.details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(59, 130, 246, 0.05);
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #4a4a6a;
+}
+
+:global(.dark) .detailItem {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.15);
+  color: #b0b0c0;
+}
+
+/* ===== Barre de Progression ===== */
+.progressContainer {
+  margin-bottom: 1.25rem;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.progressLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6a6a8a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.progressValue {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.progressBar {
+  height: 6px;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+:global(.dark) .progressBar {
+  background: rgba(59, 130, 246, 0.15);
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #6366f1);
+  border-radius: 3px;
+}
+
+.progressGlow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: #6366f1;
+  filter: blur(6px);
+  opacity: 0.3;
+}
+
+/* ===== Description ===== */
+.description {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #5a5a7a;
+  margin: 0 0 1.25rem 0;
+}
+
+:global(.dark) .description {
+  color: #a0a0b0;
+}
+
+/* ===== Section Titre ===== */
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 0.75rem 0;
+}
+
+:global(.dark) .sectionTitle {
+  color: #e0e0f0;
+}
+
+/* ===== Cours ===== */
+.coursesSection {
+  margin-bottom: 1.25rem;
+}
+
+.courses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.course {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #3b82f6;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+:global(.dark) .course {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.course:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+}
+
+/* ===== Réalisations ===== */
+.achievementsSection {
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(200, 210, 230, 0.3);
+}
+
+:global(.dark) .achievementsSection {
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+.achievements {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.achievement {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(200, 210, 230, 0.2);
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #4a4a6a;
+  transition: all 0.3s ease;
+}
+
+:global(.dark) .achievement {
+  background: rgba(30, 35, 50, 0.5);
+  border-color: rgba(255, 255, 255, 0.04);
+  color: #b0b0c0;
+}
+
+.achievement:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+:global(.dark) .achievement:hover {
+  background: rgba(40, 45, 60, 0.8);
+}
+
+/* ===== Certifications ===== */
+.certificationsSection {
+  margin-bottom: 1.5rem;
+}
+
+.certificationsHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: #f59e0b;
+}
+
+.certificationsTitle {
+  font-size: 1.0625rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+  flex: 1;
+}
+
+:global(.dark) .certificationsTitle {
+  color: #f0f0f5;
+}
+
+.certificationsCount {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: rgba(245, 158, 11, 0.15);
+  border-radius: 50%;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #f59e0b;
+}
+
+.certifications {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.certification {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(200, 210, 230, 0.2);
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+:global(.dark) .certification {
+  background: rgba(30, 35, 50, 0.5);
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+.certification:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(200, 210, 230, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+:global(.dark) .certification:hover {
+  background: rgba(40, 45, 60, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.certificationIcon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.625rem;
+  flex-shrink: 0;
+}
+
+.certificationInfo {
+  flex: 1;
+}
+
+.certificationName {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.125rem;
+}
+
+:global(.dark) .certificationName {
+  color: #f0f0f5;
+}
+
+.certificationIssuer {
+  font-size: 0.75rem;
+  color: #8a8aaa;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.certificationDot {
+  font-size: 0.5rem;
+}
+
+.certificationArrow {
+  color: #8a8aaa;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.certification:hover .certificationArrow {
+  opacity: 1;
+  color: #3b82f6;
+}
+
+/* ===== Pied de Carte ===== */
+.footer {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.05),
+    rgba(99, 102, 241, 0.05)
+  );
+  border: 1px solid rgba(59, 130, 246, 0.1);
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+:global(.dark) .footer {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.08),
+    rgba(99, 102, 241, 0.08)
+  );
+  border-color: rgba(59, 130, 246, 0.15);
+}
+
+.footerText {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #6a6a8a;
+  margin: 0;
+}
+
+:global(.dark) .footerText {
+  color: #9090a0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 767px) {
+  .card {
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+  }
+  
+  .currentEducation {
+    padding: 1.25rem;
+  }
+  
+  .degreeHeader {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .details {
+    grid-template-columns: 1fr;
+  }
+  
+  .courses {
+    gap: 0.375rem;
+  }
+}
+
+/* ===== Performance ===== */
+@media (prefers-reduced-motion: reduce) {
+  .statusDot {
+    animation: none;
+  }
+  
+  .progressFill {
+    animation: none;
+  }
+}

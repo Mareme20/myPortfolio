@@ -1,0 +1,479 @@
+/* ContactForm.module.css */
+
+/* ===== Variables ===== */
+.container {
+  --brand: 250, 85%, 65%;
+  --accent: 220, 70%, 55%;
+  
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.6)
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.06),
+    0 8px 20px rgba(0, 0, 0, 0.03);
+}
+
+:global(.dark) .container {
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 40, 0.9),
+    rgba(20, 20, 30, 0.8)
+  );
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Formulaire ===== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ===== Champ Caché ===== */
+.hidden {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+/* ===== En-tête ===== */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.headerContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.headerIcon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(
+    135deg,
+    hsla(var(--brand), 0.15),
+    hsla(var(--accent), 0.15)
+  );
+  border: 1px solid hsla(var(--brand), 0.2);
+  border-radius: 0.75rem;
+  color: hsl(var(--brand));
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #1a1a2e;
+  margin: 0 0 0.375rem 0;
+  letter-spacing: -0.02em;
+}
+
+:global(.dark) .title {
+  color: #f0f0f5;
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: #6a6a8a;
+  margin: 0;
+  line-height: 1.5;
+}
+
+:global(.dark) .subtitle {
+  color: #9090a0;
+}
+
+/* ===== Barre de Progression ===== */
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progressBar {
+  height: 6px;
+  background: rgba(100, 100, 120, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+:global(.dark) .progressBar {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    hsl(var(--brand)),
+    hsl(var(--accent))
+  );
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progressFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  background: white;
+  filter: blur(6px);
+  opacity: 0.3;
+}
+
+.progressText {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: hsl(var(--brand));
+  text-align: right;
+}
+
+/* ===== Grille de Champs ===== */
+.fieldsGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .fieldsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===== Champ ===== */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  cursor: text;
+}
+
+.fieldLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #4a4a6a;
+  transition: color 0.3s ease;
+}
+
+:global(.dark) .fieldLabel {
+  color: #b0b0c0;
+}
+
+.fieldFocused .fieldLabel {
+  color: hsl(var(--brand));
+}
+
+.fieldIcon {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #8a8aaa;
+  transition: color 0.3s ease;
+}
+
+.fieldFocused .fieldIcon {
+  color: hsl(var(--brand));
+}
+
+/* ===== Input ===== */
+.input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid rgba(200, 200, 210, 0.3);
+  border-radius: 0.75rem;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: #1a1a2e;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+:global(.dark) .input {
+  background: rgba(30, 30, 40, 0.6);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #e0e0f0;
+}
+
+.input::placeholder {
+  color: #9a9aaa;
+}
+
+:global(.dark) .input::placeholder {
+  color: #606070;
+}
+
+.input:focus {
+  border-color: hsl(var(--brand));
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 0 0 3px hsla(var(--brand), 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+:global(.dark) .input:focus {
+  background: rgba(40, 40, 50, 0.9);
+  box-shadow: 
+    0 0 0 3px hsla(var(--brand), 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.textareaContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.textareaFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.charCount {
+  font-size: 0.75rem;
+  color: #8a8aaa;
+}
+
+.charWarning {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #f59e0b;
+}
+
+/* ===== Message d'Erreur ===== */
+.fieldError .input {
+  border-color: #ef4444;
+}
+
+.fieldError .fieldLabel {
+  color: #ef4444;
+}
+
+.errorMessage {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #ef4444;
+  margin-top: 0.25rem;
+}
+
+/* ===== Bouton de Soumission ===== */
+.submitButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--brand)),
+    hsl(var(--accent))
+  );
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.875rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 8px 25px hsla(var(--brand), 0.3),
+    0 2px 8px hsla(var(--brand), 0.2);
+  margin-top: 0.5rem;
+}
+
+.submitButton:hover:not(:disabled) {
+  box-shadow: 
+    0 12px 35px hsla(var(--brand), 0.4),
+    0 4px 12px hsla(var(--brand), 0.3);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.submitGlow {
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--brand)),
+    hsl(var(--accent))
+  );
+  border-radius: 0.9375rem;
+  opacity: 0;
+  filter: blur(15px);
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.submitButton:hover:not(:disabled) .submitGlow {
+  opacity: 0.4;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Confidentialité ===== */
+.privacy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: #8a8aaa;
+  margin: 0;
+  text-align: center;
+}
+
+/* ===== Message de Succès ===== */
+.successMessage {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.successIcon {
+  display: grid;
+  place-items: center;
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(
+    135deg,
+    hsla(160, 80%, 45%, 0.2),
+    hsla(160, 80%, 35%, 0.2)
+  );
+  border: 2px solid hsla(160, 80%, 45%, 0.3);
+  border-radius: 1.25rem;
+  color: #10b981;
+}
+
+.successTitle {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #1a1a2e;
+  margin: 0 0 0.75rem 0;
+}
+
+:global(.dark) .successTitle {
+  color: #f0f0f5;
+}
+
+.successDescription {
+  font-size: 1.0625rem;
+  color: #6a6a8a;
+  margin: 0 auto 2rem;
+  max-width: 28rem;
+  line-height: 1.6;
+}
+
+:global(.dark) .successDescription {
+  color: #a0a0b0;
+}
+
+.successDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.successDetailItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(200, 200, 210, 0.2);
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a4a6a;
+}
+
+:global(.dark) .successDetailItem {
+  background: rgba(30, 30, 40, 0.5);
+  border-color: rgba(255, 255, 255, 0.06);
+  color: #b0b0c0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 767px) {
+  .container {
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .successMessage {
+    padding: 2rem 1rem;
+  }
+  
+  .successTitle {
+    font-size: 1.5rem;
+  }
+}
+
+/* ===== Performance ===== */
+@media (prefers-reduced-motion: reduce) {
+  .progressFill {
+    animation: none;
+  }
+  
+  .spinner {
+    animation: none;
+  }
+}

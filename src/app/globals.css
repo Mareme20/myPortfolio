@@ -4,60 +4,147 @@
 
 @layer base {
   :root {
-    --radius: 0.5rem;
+    --radius: 0.95rem;
+    --bg: 42 44% 95%;
+    --bg-alt: 36 58% 92%;
+    --surface: 39 80% 98%;
+    --surface-2: 39 64% 94%;
+    --text: 211 34% 16%;
+    --muted: 215 14% 43%;
+    --brand: 18 57% 48%;
+    --brand-strong: 18 64% 36%;
+    --accent: 174 66% 31%;
   }
-  
+
   .dark {
-    --background: 222.2 84% 4.9%;
+    --bg: 207 37% 11%;
+    --bg-alt: 210 40% 14%;
+    --surface: 212 39% 16%;
+    --surface-2: 213 32% 20%;
+    --text: 39 78% 95%;
+    --muted: 215 18% 72%;
+    --brand: 21 62% 58%;
+    --brand-strong: 20 62% 50%;
+    --accent: 168 63% 42%;
+  }
+
+  html,
+  body {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: linear-gradient(180deg, hsl(var(--bg)), hsl(var(--bg-alt)));
+    color: hsl(var(--text));
+    font-family: "Plus Jakarta Sans", "Manrope", "Segoe UI", sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@layer components {
+  .app-bg {
+    background-image:
+      radial-gradient(circle at 12% 10%, rgb(198 93 58 / 0.14) 0, transparent 36%),
+      radial-gradient(circle at 88% 14%, rgb(15 118 110 / 0.14) 0, transparent 40%),
+      radial-gradient(circle at 55% 90%, rgb(198 93 58 / 0.11) 0, transparent 38%);
+  }
+
+  .grain {
+    background-image:
+      linear-gradient(rgb(71 85 105 / 0.11) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(71 85 105 / 0.11) 1px, transparent 1px);
+    background-size: 52px 52px;
+    background-position: center;
+  }
+
+  .panel {
+    border: 1px solid rgb(148 163 184 / 0.35);
+    border-radius: 1.2rem;
+    background: linear-gradient(140deg, hsl(var(--surface)), hsl(var(--surface-2)));
+    box-shadow: 0 14px 36px rgb(30 41 59 / 0.08);
+  }
+
+  .dark .panel {
+    border-color: rgb(100 116 139 / 0.35);
+    box-shadow: 0 18px 42px rgb(2 6 23 / 0.45);
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: hsl(var(--accent));
+  }
+
+  .btn-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border-radius: 0.8rem;
+    padding: 0.72rem 1.25rem;
+    font-size: 0.86rem;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(120deg, hsl(var(--brand)), hsl(var(--brand-strong)));
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+
+  .btn-brand:hover {
+    transform: translateY(-1px);
+    opacity: 0.95;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border-radius: 0.8rem;
+    padding: 0.72rem 1.1rem;
+    font-size: 0.86rem;
+    font-weight: 700;
+    border: 1px solid rgb(100 116 139 / 0.45);
+    color: hsl(var(--text));
+    background: rgb(255 255 255 / 0.55);
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+
+  .dark .btn-ghost {
+    background: rgb(15 23 42 / 0.6);
+  }
+
+  .btn-ghost:hover {
+    transform: translateY(-1px);
+    border-color: hsl(var(--accent));
+  }
+
+  .tag {
+    border-radius: 999px;
+    padding: 0.28rem 0.66rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border: 1px solid rgb(148 163 184 / 0.42);
+    color: hsl(var(--text));
+    background: rgb(255 255 255 / 0.68);
+  }
+
+  .dark .tag {
+    background: rgb(15 23 42 / 0.62);
   }
 }
 
 @layer utilities {
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-  
   .line-clamp-2 {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
-}
 
-/* Animated blob */
-@keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-}
-
-.animate-blob {
-  animation: blob 7s infinite;
-}
-@layer base {
-  :root {
-    --background: 0 0% 100%; /* Blanc */
-    --foreground: 222.2 84% 4.9%; /* Noir très sombre */
-    --radius: 0.5rem;
-  }
-  
-  .dark {
-    --background: 222.2 84% 4.9%; /* Bleu nuit très sombre */
-    --foreground: 210 40% 98%; /* Blanc cassé */
-  }
-
-  body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+  .text-balance {
+    overflow-wrap: anywhere;
   }
 }

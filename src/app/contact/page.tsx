@@ -1,119 +1,121 @@
-// app/contact/page.tsx
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Clock, 
-  MessageSquare,
-  Linkedin,
-  Github,
-  Calendar
-} from 'lucide-react'
+import { Mail, Linkedin, Github, Clock, Calendar, ArrowUpRight, Sparkles, Zap, MessageSquare } from 'lucide-react'
 import FadeIn from '@/components/animations/FadeIn'
 import ContactForm from '@/components/contact/ContactForm'
 import { socialLinks } from '@/lib/data'
+import styles from './ContactPage.module.css'
 
-const contactInfo = [
+const contactBlocks = [
   {
     icon: Mail,
     title: 'Email',
-    value: 'contact@votredomaine.com',
-    href: 'mailto:contact@votredomaine.com',
-    description: 'Réponse sous 48h'
+    value: socialLinks.email,
+    href: `mailto:${socialLinks.email}`,
+    note: 'Réponse sous 48h',
+    color: '#6366f1',
   },
   {
     icon: Linkedin,
     title: 'LinkedIn',
-    value: 'linkedin.com/in/votrenom',
-    href: socialLinks.linkedin,
-    description: 'Connectons-nous'
+    value: 'Profil professionnel',
+    href: socialLinks.linkedin, // https://www.linkedin.com/in/mari%C3%A8me-ndiaye-89a771259/,
+    note: 'Opportunités et networking',
+    color: '#0a66c2',
   },
   {
     icon: Github,
     title: 'GitHub',
-    value: 'github.com/votreusername',
+    value: 'Code et projets',
     href: socialLinks.github,
-    description: 'Voir mes projets'
+    note: 'Historique technique',
+    color: '#333333',
   },
   {
     icon: Calendar,
-    title: 'Disponibilité',
-    value: 'Réunions',
+    title: 'Appel',
+    value: 'Planifier un rendez-vous',
     href: 'https://cal.com/votrenom',
-    description: 'Planifier un appel'
-  }
-]
-
-const faqs = [
-  {
-    question: 'Quel est votre délai de réponse?',
-    answer: 'Je m\'efforce de répondre à tous les messages dans les 48 heures ouvrables.'
+    note: 'Créneaux sur demande',
+    color: '#10b981',
   },
-  {
-    question: 'Acceptez-vous des projets freelance?',
-    answer: 'Oui, je suis ouverte à des projets freelance intéressants. Discutons de vos besoins!'
-  },
-  {
-    question: 'Recherchez-vous un stage?',
-    answer: 'Oui! Je suis actuellement à la recherche d\'un stage de fin d\'études en développement full-stack à partir de juin 2024.'
-  },
-  {
-    question: 'Quelles sont vos technologies préférées?',
-    answer: 'J\'adore travailler avec Next.js, TypeScript et Tailwind CSS, mais je suis toujours ouverte à apprendre de nouvelles technologies.'
-  }
 ]
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
-      <div className="container mx-auto px-4 py-20">
-        {/* Header */}
+    <div className={styles.page}>
+      {/* Éléments décoratifs */}
+      <div className={styles.backgroundDecor}>
+        <div className={styles.gradientOrb1} />
+        <div className={styles.gradientOrb2} />
+        <div className={styles.gridPattern} />
+      </div>
+
+      <div className={styles.container}>
+        {/* En-tête */}
         <FadeIn>
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Prenons <span className="text-primary">contact</span>
+          <header className={styles.header}>
+            <div className={styles.headerBadge}>
+              <Sparkles className={styles.badgeIcon} />
+              <span>Contact</span>
+              <span className={styles.badgeDot} />
+            </div>
+            
+            <h1 className={styles.title}>
+              Discutons de votre
+              <span className={styles.titleHighlight}> prochain projet.</span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Que ce soit pour discuter d'une opportunité, collaborer sur un projet ou simplement échanger, n'hésitez pas à me contacter!
+            
+            <p className={styles.description}>
+              Partagez votre contexte, vos objectifs et votre calendrier. 
+              Je vous répondrai avec une proposition claire et concrète 
+              pour avancer ensemble.
             </p>
-          </div>
+          </header>
         </FadeIn>
 
-        <div className="grid lg:grid-cols-3 gap-12">
+        {/* Contenu principal */}
+        <div className={styles.grid}>
           {/* Formulaire */}
-          <div className="lg:col-span-2">
-            <ContactForm />
+          <div className={styles.formColumn}>
+            <FadeIn delay={0.1}>
+              <ContactForm />
+            </FadeIn>
           </div>
 
-          {/* Informations de contact */}
-          <div className="space-y-8">
-            {/* Cartes d'information */}
-            <div className="space-y-4">
-              {contactInfo.map((info, index) => {
-                const Icon = info.icon
+          {/* Sidebar */}
+          <aside className={styles.sidebar}>
+            {/* Blocs de contact */}
+            <div className={styles.contactBlocks}>
+              {contactBlocks.map((item, index) => {
+                const Icon = item.icon
                 return (
-                  <FadeIn key={info.title} delay={index * 0.1}>
+                  <FadeIn key={item.title} delay={0.1 * (index + 1)}>
                     <a
-                      href={info.href}
-                      target={info.href.startsWith('http') ? '_blank' : undefined}
-                      rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="group block p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary transition-all hover:shadow-lg"
+                      href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : undefined}
+                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className={styles.contactBlock}
                     >
-                      <div className="flex items-start">
-                        <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors mr-4">
-                          <Icon className="h-6 w-6" />
+                      <div className={styles.contactBlockContent}>
+                        <div 
+                          className={styles.contactIcon}
+                          style={{ 
+                            background: `${item.color}15`,
+                            color: item.color,
+                            borderColor: `${item.color}30`,
+                          }}
+                        >
+                          <Icon className="h-4 w-4" />
                         </div>
-                        <div>
-                          <h3 className="font-bold text-lg mb-1 group-hover:text-primary transition-colors">
-                            {info.title}
-                          </h3>
-                          <p className="text-gray-900 dark:text-white font-medium mb-1">
-                            {info.value}
-                          </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {info.description}
-                          </p>
+                        
+                        <div className={styles.contactInfo}>
+                          <span className={styles.contactTitle}>{item.title}</span>
+                          <span className={styles.contactValue}>{item.value}</span>
+                          <span className={styles.contactNote}>{item.note}</span>
                         </div>
+                      </div>
+                      
+                      <div className={styles.contactArrow}>
+                        <ArrowUpRight className="h-4 w-4" />
                       </div>
                     </a>
                   </FadeIn>
@@ -121,85 +123,40 @@ export default function ContactPage() {
               })}
             </div>
 
-            {/* FAQ */}
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-xl p-6">
-              <h3 className="text-xl font-bold mb-6 flex items-center">
-                <MessageSquare className="h-5 w-5 mr-3 text-primary" />
-                Questions fréquentes
-              </h3>
-              <div className="space-y-4">
-                {faqs.map((faq, index) => (
-                  <details
-                    key={index}
-                    className="group bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
-                  >
-                    <summary className="cursor-pointer font-medium text-gray-900 dark:text-white list-none">
-                      <div className="flex justify-between items-center">
-                        <span>{faq.question}</span>
-                        <span className="text-primary transition-transform group-open:rotate-180">
-                          ▼
-                        </span>
-                      </div>
-                    </summary>
-                    <p className="mt-3 text-gray-600 dark:text-gray-300">
-                      {faq.answer}
+            {/* Disponibilité */}
+            <FadeIn delay={0.5}>
+              <div className={styles.availability}>
+                <div className={styles.availabilityHeader}>
+                  <div className={styles.availabilityIcon}>
+                    <Clock className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h3 className={styles.availabilityTitle}>Disponibilité actuelle</h3>
+                    <p className={styles.availabilitySubtitle}>
+                      Prête à collaborer
                     </p>
-                  </details>
-                ))}
+                  </div>
+                  <span className={styles.availabilityDot} />
+                </div>
+                
+                <div className={styles.availabilityList}>
+                  <div className={styles.availabilityItem}>
+                    <Zap className="h-3.5 w-3.5" />
+                    <span>Stage & Alternance</span>
+                  </div>
+                  <div className={styles.availabilityItem}>
+                    <MessageSquare className="h-3.5 w-3.5" />
+                    <span>Freelance sélectif</span>
+                  </div>
+                  <div className={styles.availabilityItem}>
+                    <Sparkles className="h-3.5 w-3.5" />
+                    <span>Projets open source</span>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            {/* CTA Réseaux sociaux */}
-            <div className="bg-gradient-to-r from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-xl p-6">
-              <h3 className="text-xl font-bold mb-4">Suivez mon travail</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
-                Restez connecté et découvrez mes derniers projets et articles.
-              </p>
-              <div className="flex space-x-4">
-                <a
-                  href={socialLinks.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 p-3 bg-gray-900 text-white rounded-lg text-center hover:bg-black transition-colors font-medium"
-                >
-                  GitHub
-                </a>
-                <a
-                  href={socialLinks.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 p-3 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700 transition-colors font-medium"
-                >
-                  LinkedIn
-                </a>
-              </div>
-            </div>
-          </div>
+            </FadeIn>
+          </aside>
         </div>
-
-        {/* Stats */}
-        <FadeIn delay={0.6}>
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { label: 'Projets réalisés', value: '15+' },
-              { label: 'Clients satisfaits', value: '100%' },
-              { label: 'Taux de réponse', value: '< 48h' },
-              { label: 'Disponibilité', value: 'Immédiate' },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="text-center p-6 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700"
-              >
-                <div className="text-3xl font-bold text-primary mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-600 dark:text-gray-400">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </FadeIn>
       </div>
     </div>
   )

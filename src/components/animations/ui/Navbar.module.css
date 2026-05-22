@@ -1,0 +1,527 @@
+/* Navbar.module.css */
+
+/* ===== Variables ===== */
+.header {
+  --brand-hue: 250;
+  --brand-saturation: 85%;
+  --brand-lightness: 65%;
+  --brand: var(--brand-hue), var(--brand-saturation), var(--brand-lightness);
+  --accent-hue: 220;
+  --accent-saturation: 70%;
+  --accent-lightness: 55%;
+  --accent: var(--accent-hue), var(--accent-saturation), var(--accent-lightness);
+  
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===== Container ===== */
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+}
+
+/* ===== Glass Panel ===== */
+.glass {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3.75rem;
+  padding: 0 1.25rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.04),
+    0 2px 8px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+:global(.dark) .glass {
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 40, 0.8),
+    rgba(20, 20, 30, 0.9)
+  );
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.glass:hover {
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* ===== Brand ===== */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+
+.logo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--accent)));
+  border-radius: 0.75rem;
+  color: white;
+  box-shadow: 
+    0 4px 12px hsla(var(--brand), 0.4),
+    0 1px 3px hsla(var(--brand), 0.3);
+  transition: all 0.3s ease;
+}
+
+.brand:hover .logo {
+  transform: scale(1.05) rotate(-5deg);
+  box-shadow: 
+    0 8px 24px hsla(var(--brand), 0.5),
+    0 2px 6px hsla(var(--brand), 0.4);
+}
+
+.logoGlow {
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--accent)));
+  border-radius: 0.875rem;
+  opacity: 0.3;
+  filter: blur(8px);
+  transition: opacity 0.3s ease;
+}
+
+.brand:hover .logoGlow {
+  opacity: 0.5;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(100, 100, 120, 0.8);
+  margin: 0;
+  line-height: 1;
+}
+
+:global(.dark) .label {
+  color: rgba(180, 180, 200, 0.7);
+}
+
+.name {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+:global(.dark) .name {
+  color: #f0f0f5;
+}
+
+/* ===== Desktop Navigation ===== */
+.desktopNav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktopNav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 0.875rem;
+}
+
+:global(.dark) .navList {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.navLink {
+  position: relative;
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #4a4a6a;
+  text-decoration: none;
+  border-radius: 0.625rem;
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+:global(.dark) .navLink {
+  color: #b0b0c0;
+}
+
+.navLink:hover {
+  color: #1a1a2e;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+:global(.dark) .navLink:hover {
+  color: #f0f0f5;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.navLinkActive {
+  color: white !important;
+  background: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--accent)));
+  box-shadow: 0 2px 8px hsla(var(--brand), 0.3);
+}
+
+.navLinkText {
+  position: relative;
+  z-index: 1;
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: white;
+  border-radius: 1px;
+}
+
+/* ===== Actions ===== */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.iconButton {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.75rem;
+  color: #4a4a6a;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+:global(.dark) .iconButton {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #b0b0c0;
+}
+
+.iconButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--accent)));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  border-radius: inherit;
+}
+
+.iconButton:hover {
+  border-color: hsl(var(--brand));
+  color: hsl(var(--brand));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.iconButton:hover::before {
+  opacity: 0.05;
+}
+
+.iconButton:active {
+  transform: translateY(0);
+}
+
+/* ===== Primary Button ===== */
+.primaryButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--accent)));
+  color: white;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 12px hsla(var(--brand), 0.3),
+    0 1px 3px hsla(var(--brand), 0.2);
+}
+
+.primaryButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.primaryButton:hover::before {
+  left: 100%;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px hsla(var(--brand), 0.4),
+    0 2px 6px hsla(var(--brand), 0.3);
+}
+
+.primaryButton:active {
+  transform: translateY(0);
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.buttonArrow {
+  transition: transform 0.3s ease;
+}
+
+.primaryButton:hover .buttonArrow {
+  transform: translateX(3px);
+}
+
+.buttonGlow {
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--accent)));
+  border-radius: 0.875rem;
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.3s ease;
+}
+
+.primaryButton:hover .buttonGlow {
+  opacity: 0.3;
+}
+
+/* ===== Mobile Actions ===== */
+.mobileActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .mobileActions {
+    display: none;
+  }
+}
+
+/* ===== Mobile Menu ===== */
+.mobileMenu {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  top: calc(100% + 0.5rem);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  padding: 0.75rem;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+:global(.dark) .mobileMenu {
+  background: rgba(20, 20, 30, 0.95);
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.mobileMenuInner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #4a4a6a;
+  text-decoration: none;
+  border-radius: 0.875rem;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+:global(.dark) .mobileLink {
+  color: #b0b0c0;
+}
+
+.mobileLink::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, hsl(var(--brand)), hsl(var(--accent)));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  border-radius: inherit;
+}
+
+.mobileLink:hover::before {
+  opacity: 0.05;
+}
+
+.mobileLink:hover {
+  background: rgba(0, 0, 0, 0.02);
+  transform: translateX(4px);
+}
+
+:global(.dark) .mobileLink:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.mobileLinkActive {
+  background: linear-gradient(135deg, hsla(var(--brand), 0.1), hsla(var(--accent), 0.1));
+  color: hsl(var(--brand)) !important;
+  font-weight: 700;
+}
+
+.mobileLinkActive::before {
+  opacity: 0.15;
+}
+
+.mobileLinkNumber {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: hsl(var(--brand));
+  opacity: 0.5;
+  min-width: 1.5rem;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 767px) {
+  .container {
+    padding: 0.5rem 1rem;
+  }
+  
+  .glass {
+    height: 3.25rem;
+    padding: 0 1rem;
+    border-radius: 1rem;
+  }
+  
+  .logo {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.625rem;
+  }
+  
+  .name {
+    font-size: 0.8125rem;
+  }
+}
+
+/* ===== Performance Optimizations ===== */
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    animation: none;
+  }
+  
+  .brand:hover .logo {
+    animation: none;
+    transform: none;
+  }
+  
+  .primaryButton::before {
+    animation: none;
+  }
+  
+  .primaryButton:hover .buttonArrow {
+    animation: none;
+    transform: none;
+  }
+  
+  .mobileLink:hover {
+    animation: none;
+    transform: none;
+  }
+}

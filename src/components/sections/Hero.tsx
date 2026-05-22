@@ -1,119 +1,201 @@
-// components/sections/Hero.tsx
 'use client'
 
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, ArrowDown, Sparkles } from 'lucide-react'
+import { Github, Linkedin, Mail, ArrowRight, BadgeCheck, Sparkles, ChevronDown } from 'lucide-react'
 import { socialLinks } from '@/lib/data'
 import FadeIn from '@/components/animations/FadeIn'
+import styles from './Hero.module.css'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-gray-900 dark:to-gray-800" />
-      
-      <div className="container mx-auto px-4 py-20 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <FadeIn delay={0.2}>
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary dark:bg-primary/20 mb-8">
-              <Sparkles className="h-4 w-4 mr-2" />
-              <span className="text-sm font-medium">
-                Étudiante en 3ème année de Génie Logiciel
-              </span>
-            </div>
-          </FadeIn>
-
-          {/* Titre principal */}
-          <FadeIn delay={0.4} direction="up">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                Passionnée
-              </span>{' '}
-              par le{' '}
-              <span className="bg-gradient-to-r from-secondary to-blue-500 bg-clip-text text-transparent">
-                développement
-              </span>{' '}
-              et l'<span className="underline decoration-wavy decoration-primary">innovation</span>
-            </h1>
-          </FadeIn>
-
-          {/* Sous-titre */}
-          <FadeIn delay={0.6} direction="up">
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto">
-              Je crée des applications web modernes avec React, Next.js et TypeScript.
-              Actuellement à la recherche d'un stage de fin d'études en développement full-stack.
-            </p>
-          </FadeIn>
-
-          {/* CTA Buttons */}
-          <FadeIn delay={0.8} direction="up">
-            <div className="flex flex-wrap gap-4 justify-center mb-12">
-              <a
-                href="#projects"
-                className="px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all transform hover:-translate-y-1 font-medium text-lg shadow-lg hover:shadow-xl"
-              >
-                Voir mes projets
-              </a>
-              <a
-                href="/contact"
-                className="px-8 py-3 border-2 border-primary text-primary dark:text-white rounded-lg hover:bg-primary/10 transition-all font-medium text-lg"
-              >
-                Me contacter
-              </a>
-            </div>
-          </FadeIn>
-
-          {/* Social Links */}
-          <FadeIn delay={1} direction="up">
-            <div className="flex justify-center space-x-6">
-              <a
-                href={socialLinks.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="h-6 w-6" />
-              </a>
-              <a
-                href={socialLinks.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-6 w-6" />
-              </a>
-              <a
-                href={`mailto:${socialLinks.email}`}
-                className="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                aria-label="Email"
-              >
-                <Mail className="h-6 w-6" />
-              </a>
-            </div>
-          </FadeIn>
-
-          {/* Scroll Indicator */}
-          <FadeIn delay={1.2} direction="up">
-            <div className="mt-16">
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-                className="inline-block"
-              >
-                <ArrowDown className="h-8 w-8 text-gray-400" />
-              </motion.div>
-              <p className="text-sm text-gray-500 mt-2">Scroll pour découvrir</p>
-            </div>
-          </FadeIn>
-        </div>
+    <section className={styles.hero}>
+      {/* Éléments décoratifs d'arrière-plan */}
+      <div className={styles.backgroundDecor}>
+        <div className={styles.gradientOrb1} />
+        <div className={styles.gradientOrb2} />
+        <div className={styles.gridPattern} />
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob" />
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000" />
+      <div className={styles.container}>
+        <div className={styles.glassPanel}>
+          <div className={styles.grid}>
+            {/* Colonne principale */}
+            <div className={styles.mainContent}>
+              <FadeIn delay={0.1}>
+                <motion.div 
+                  className={styles.badge}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <span className={styles.badgeDot} />
+                  <BadgeCheck className={styles.badgeIcon} />
+                  <span>Étudiante en génie logiciel</span>
+                </motion.div>
+              </FadeIn>
+
+              <FadeIn delay={0.2}>
+                <h1 className={styles.title}>
+                  Je crée des produits numériques
+                  <span className={styles.titleHighlight}>
+                    {" "}clairs, modernes et fiables.
+                  </span>
+                </h1>
+              </FadeIn>
+
+              <FadeIn delay={0.32}>
+                <p className={styles.description}>
+                  Spécialisée en Next.js, TypeScript et ingénierie produit. 
+                  Je transforme les besoins métier en interfaces fluides et systèmes maintenables, 
+                  avec une attention particulière à l'expérience utilisateur.
+                </p>
+              </FadeIn>
+
+              <FadeIn delay={0.42}>
+                <div className={styles.actions}>
+                  <motion.a 
+                    href="#projects" 
+                    className={styles.primaryButton}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className={styles.buttonText}>Voir mes projets</span>
+                    <ArrowRight className={styles.buttonIcon} />
+                    <span className={styles.buttonGlow} />
+                  </motion.a>
+                  
+                  <motion.a 
+                    href="/contact" 
+                    className={styles.secondaryButton}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className={styles.secondaryButtonText}>Me contacter</span>
+                    <span className={styles.secondaryButtonBorder} />
+                  </motion.a>
+                </div>
+              </FadeIn>
+
+              {/* Stats rapides */}
+              <FadeIn delay={0.6}>
+                <div className={styles.stats}>
+                  {[
+                    { number: '5+', label: 'Projets réalisés' },
+                    { number: '3', label: 'Technologies maîtrisées' },
+                    { number: '100%', label: 'Satisfaction client' },
+                  ].map((stat) => (
+                    <motion.div 
+                      key={stat.label} 
+                      className={styles.statItem}
+                      whileHover={{ y: -4 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <span className={styles.statNumber}>{stat.number}</span>
+                      <span className={styles.statLabel}>{stat.label}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </FadeIn>
+            </div>
+
+            {/* Colonne latérale */}
+            <FadeIn delay={0.5} direction="left">
+              <motion.aside 
+                className={styles.sidePanel}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                <div className={styles.sidePanelContent}>
+                  <div className={styles.focusHeader}>
+                    <Sparkles className={styles.focusIcon} />
+                    <p className={styles.focusLabel}>Focus actuel</p>
+                  </div>
+                  
+                  <h2 className={styles.focusTitle}>
+                    Développement Full-stack
+                  </h2>
+                  
+                  <p className={styles.focusDescription}>
+                    Architecture propre, APIs robustes et qualité UI premium, 
+                    du concept jusqu'au déploiement.
+                  </p>
+
+                  <div className={styles.skills}>
+                    {[
+                      { name: 'Next.js + Prisma', level: 90 },
+                      { name: 'Design Systems', level: 85 },
+                      { name: 'Performance & DX', level: 88 },
+                    ].map((skill) => (
+                      <div key={skill.name} className={styles.skillItem}>
+                        <div className={styles.skillHeader}>
+                          <span className={styles.skillName}>{skill.name}</span>
+                          <span className={styles.skillLevel}>{skill.level}%</span>
+                        </div>
+                        <div className={styles.skillBar}>
+                          <motion.div 
+                            className={styles.skillProgress}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${skill.level}%` }}
+                            transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className={styles.socialLinks}>
+                    {[
+                      { icon: Github, href: socialLinks.github, label: 'GitHub' },
+                      { icon: Linkedin, href: socialLinks.linkedin, label: 'LinkedIn' },
+                      { icon: Mail, href: `mailto:${socialLinks.email}`, label: 'Email' },
+                    ].map((item) => {
+                      const Icon = item.icon
+                      return (
+                        <motion.a
+                          key={item.label}
+                          href={item.href}
+                          target={item.label !== 'Email' ? '_blank' : undefined}
+                          rel={item.label !== 'Email' ? 'noopener noreferrer' : undefined}
+                          className={styles.socialButton}
+                          whileHover={{ y: -3, scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          aria-label={item.label}
+                        >
+                          <Icon className={styles.socialIcon} />
+                        </motion.a>
+                      )
+                    })}
+                  </div>
+
+                  <motion.div
+                    className={styles.availability}
+                    animate={{ 
+                      boxShadow: [
+                        '0 0 20px hsla(250, 85%, 65%, 0.3)',
+                        '0 0 40px hsla(250, 85%, 65%, 0.5)',
+                        '0 0 20px hsla(250, 85%, 65%, 0.3)',
+                      ]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <span className={styles.availabilityDot} />
+                    Disponible pour un stage
+                  </motion.div>
+                </div>
+              </motion.aside>
+            </FadeIn>
+          </div>
+        </div>
+
+        {/* Indicateur de défilement */}
+        <motion.div 
+          className={styles.scrollIndicator}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <ChevronDown className={styles.scrollIcon} />
+        </motion.div>
+      </div>
     </section>
   )
 }

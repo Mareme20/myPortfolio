@@ -1,12 +1,17 @@
 // app/api/admin/projects/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { prisma } from '@/lib/prisma'
-import { authOptions } from '@/lib/auth'
+
+export const dynamic = 'force-dynamic'
 
 // GET: Récupérer tous les projets
 export async function GET(request: NextRequest) {
   try {
+    const [{ getServerSession }, { authOptions }, { prisma }] = await Promise.all([
+      import('next-auth'),
+      import('@/lib/auth'),
+      import('@/lib/prisma'),
+    ])
+
     const session = await getServerSession(authOptions)
     
     if (!session || session.user.role !== 'ADMIN') {
@@ -60,6 +65,12 @@ export async function GET(request: NextRequest) {
 // POST: Créer un projet
 export async function POST(request: NextRequest) {
   try {
+    const [{ getServerSession }, { authOptions }, { prisma }] = await Promise.all([
+      import('next-auth'),
+      import('@/lib/auth'),
+      import('@/lib/prisma'),
+    ])
+
     const session = await getServerSession(authOptions)
     
     if (!session || session.user.role !== 'ADMIN') {

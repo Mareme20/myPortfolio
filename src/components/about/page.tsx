@@ -4,6 +4,8 @@ import Timeline from '@/components/about/Timeline'
 import SkillsRadar from '@/components/about/SkillsRadar'
 import EducationCard from '@/components/about/EducationCard'
 import InterestsGrid from '@/components/about/InterestsGrid'
+import { motion, type Variants } from 'framer-motion'
+import styles from './About.module.css'
 import { 
   GraduationCap, 
   Briefcase, 
@@ -12,49 +14,80 @@ import {
   Code2,
   Globe,
   BookOpen,
-  Sparkles
+  Sparkles,
+  ArrowRight,
+  Send,
+  FileText,
+  Star,
+  Zap,
+  Coffee,
+  GitBranch,
+  Terminal,
+  Smile
 } from 'lucide-react'
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-950">
+    <div className={styles.page}>
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20">
-        <div className="container mx-auto px-4">
+      <section className={styles.hero}>
+        {/* Éléments décoratifs */}
+        <div className={styles.backgroundDecor}>
+          <div className={styles.gradientOrb1} />
+          <div className={styles.gradientOrb2} />
+          <div className={styles.gridPattern} />
+        </div>
+
+        <div className={styles.container}>
           <FadeIn>
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary dark:bg-primary/20 mb-8">
-                <Sparkles className="h-4 w-4 mr-2" />
-                <span className="text-sm font-medium">
-                  Étudiante en Génie Logiciel Passionnée
-                </span>
-              </div>
+            <div className={styles.heroContent}>
+              <motion.div 
+                className={styles.heroBadge}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
+              >
+                <Sparkles className={styles.badgeIcon} />
+                <span className={styles.badgeText}>Étudiante en Génie Logiciel Passionnée</span>
+                <span className={styles.badgeDot} />
+              </motion.div>
               
-              <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              <h1 className={styles.heroTitle}>
                 Enchantée, je suis{' '}
-                <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                  [Votre Prénom]
+                <span className={styles.heroName}>
+                  Marième Ndiaye
                 </span>
               </h1>
               
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto">
-                Développeuse full-stack en formation, passionnée par la création d'applications web innovantes 
-                et l'optimisation des performances. Toujours à la recherche de nouveaux défis techniques.
+              <p className={styles.heroDescription}>
+                Développeuse full-stack en formation, passionnée par la création d'applications 
+                web innovantes et l'optimisation des performances. Toujours à la recherche de 
+                nouveaux défis techniques et d'opportunités d'apprentissage.
               </p>
               
-              <div className="flex flex-wrap gap-4 justify-center">
-                <div className="flex items-center">
-                  <Code2 className="h-5 w-5 text-primary mr-2" />
-                  <span className="font-medium">+3 ans d'expérience en développement</span>
-                </div>
-                <div className="flex items-center">
-                  <Target className="h-5 w-5 text-secondary mr-2" />
-                  <span className="font-medium">Spécialisée React/Next.js</span>
-                </div>
-                <div className="flex items-center">
-                  <Globe className="h-5 w-5 text-blue-500 mr-2" />
-                  <span className="font-medium">Français 🇫🇷 & Anglais 🇬🇧</span>
-                </div>
+              <div className={styles.heroStats}>
+                {[
+                  { icon: Code2, label: "+3 ans d'expérience", color: "var(--brand)" },
+                  { icon: Target, label: "Spécialisée React/Next.js", color: "var(--accent)" },
+                  { icon: Globe, label: "Français & Anglais", color: "#3b82f6" },
+                ].map((stat) => {
+                  const Icon = stat.icon
+                  return (
+                    <motion.div
+                      key={stat.label}
+                      className={styles.statItem}
+                      whileHover={{ y: -4 }}
+                      transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
+                    >
+                      <span 
+                        className={styles.statIcon}
+                        style={{ background: `${stat.color}20`, color: stat.color }}
+                      >
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className={styles.statLabel}>{stat.label}</span>
+                    </motion.div>
+                  )
+                })}
               </div>
             </div>
           </FadeIn>
@@ -62,28 +95,30 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline & Skills Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-12">
+      <section className={styles.mainContent}>
+        <div className={styles.container}>
+          <div className={styles.mainGrid}>
             {/* Timeline - 2/3 de largeur */}
-            <div className="lg:col-span-2">
+            <div className={styles.timelineColumn}>
               <FadeIn delay={0.2}>
-                <div className="mb-12">
-                  <h2 className="text-3xl font-bold mb-6 flex items-center">
-                    <BookOpen className="h-8 w-8 mr-3 text-primary" />
-                    Mon Parcours
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-300 mb-8">
-                    De mes débuts en programmation à mon parcours académique et professionnel, 
-                    chaque étape a contribué à façonner ma passion pour le développement logiciel.
-                  </p>
+                <div className={styles.sectionHeader}>
+                  <div className={styles.sectionIcon}>
+                    <BookOpen className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h2 className={styles.sectionTitle}>Mon Parcours</h2>
+                    <p className={styles.sectionDescription}>
+                      De mes débuts en programmation à mon parcours académique et professionnel, 
+                      chaque étape a contribué à façonner ma passion pour le développement logiciel.
+                    </p>
+                  </div>
                 </div>
               </FadeIn>
               <Timeline />
             </div>
 
             {/* Skills & Education - 1/3 de largeur */}
-            <div className="space-y-12">
+            <div className={styles.sideColumn}>
               <SkillsRadar />
               <EducationCard />
             </div>
@@ -92,49 +127,61 @@ export default function AboutPage() {
       </section>
 
       {/* Philosophy & Interests */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12">
+      <section className={styles.philosophySection}>
+        <div className={styles.container}>
+          <div className={styles.philosophyGrid}>
             {/* Philosophie */}
             <FadeIn>
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl">
-                <div className="flex items-center mb-6">
-                  <div className="p-3 rounded-lg bg-primary/10 text-primary mr-4">
+              <div className={styles.philosophyCard}>
+                <div className={styles.philosophyHeader}>
+                  <div className={styles.philosophyIcon}>
                     <Heart className="h-6 w-6" />
                   </div>
-                  <h2 className="text-2xl font-bold">Ma Philosophie</h2>
+                  <h2 className={styles.philosophyTitle}>Ma Philosophie</h2>
                 </div>
                 
-                <div className="space-y-6">
-                  <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20">
-                    <h3 className="font-bold text-lg mb-2 text-blue-700 dark:text-blue-300">
-                      💡 Innovation & Apprentissage Continu
-                    </h3>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      Je crois que la technologie évolue constamment, et avec elle, notre façon de résoudre les problèmes. 
-                      Je m'engage à apprendre et à m'adapter aux nouvelles technologies.
-                    </p>
-                  </div>
-                  
-                  <div className="p-4 rounded-xl bg-green-50 dark:bg-green-900/20">
-                    <h3 className="font-bold text-lg mb-2 text-green-700 dark:text-green-300">
-                      🎯 Qualité & Best Practices
-                    </h3>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      Un code propre, maintenable et bien testé n'est pas une option mais une nécessité. 
-                      J'adopte les meilleures pratiques de développement et les principes SOLID.
-                    </p>
-                  </div>
-                  
-                  <div className="p-4 rounded-xl bg-purple-50 dark:bg-purple-900/20">
-                    <h3 className="font-bold text-lg mb-2 text-purple-700 dark:text-purple-300">
-                      🤝 Collaboration & Communication
-                    </h3>
-                    <p className="text-gray-700 dark:text-gray-300">
-                      Les meilleurs produits naissent de la collaboration. Je valorise la communication 
-                      claire et le travail d'équipe pour atteindre des objectifs communs.
-                    </p>
-                  </div>
+                <div className={styles.philosophyItems}>
+                  {[
+                    {
+                      icon: Zap,
+                      title: "Innovation & Apprentissage",
+                      description: "Je crois que la technologie évolue constamment, et avec elle, notre façon de résoudre les problèmes. Je m'engage à apprendre et à m'adapter continuellement.",
+                      gradient: "from-blue-500 to-cyan-500",
+                      bgGradient: "from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30",
+                    },
+                    {
+                      icon: Star,
+                      title: "Qualité & Best Practices",
+                      description: "Un code propre, maintenable et bien testé n'est pas une option mais une nécessité. J'adopte les principes SOLID et les meilleures pratiques de développement.",
+                      gradient: "from-emerald-500 to-teal-500",
+                      bgGradient: "from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30",
+                    },
+                    {
+                      icon: Target,
+                      title: "Collaboration & Communication",
+                      description: "Les meilleurs produits naissent de la collaboration. Je valorise la communication claire et le travail d'équipe pour atteindre des objectifs communs.",
+                      gradient: "from-purple-500 to-pink-500",
+                      bgGradient: "from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30",
+                    },
+                  ].map((item) => {
+                    const Icon = item.icon
+                    return (
+                      <motion.div
+                        key={item.title}
+                        className={`${styles.philosophyItem} bg-gradient-to-br ${item.bgGradient}`}
+                        whileHover={{ x: 8 }}
+                        transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
+                      >
+                        <div className={`${styles.philosophyItemIcon} bg-gradient-to-br ${item.gradient}`}>
+                          <Icon className="h-5 w-5 text-white" />
+                        </div>
+                        <div>
+                          <h3 className={styles.philosophyItemTitle}>{item.title}</h3>
+                          <p className={styles.philosophyItemDescription}>{item.description}</p>
+                        </div>
+                      </motion.div>
+                    )
+                  })}
                 </div>
               </div>
             </FadeIn>
@@ -142,29 +189,44 @@ export default function AboutPage() {
             {/* Centres d'intérêt */}
             <FadeIn delay={0.3}>
               <div>
-                <h2 className="text-3xl font-bold mb-8 flex items-center">
-                  <Sparkles className="h-8 w-8 mr-3 text-primary" />
-                  Au-delà du code
-                </h2>
+                <div className={styles.interestsHeader}>
+                  <div className={styles.sectionIcon}>
+                    <Sparkles className="h-6 w-6" />
+                  </div>
+                  <h2 className={styles.sectionTitle}>Au-delà du code</h2>
+                </div>
                 <InterestsGrid />
                 
                 {/* Fun Facts */}
-                <div className="mt-12 bg-gradient-to-r from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-8">
-                  <h3 className="text-xl font-bold mb-6">💡 Fun Facts</h3>
-                  <div className="grid grid-cols-2 gap-4">
+                <motion.div 
+                  className={styles.funFacts}
+                  whileHover={{ y: -4 }}
+                  transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
+                >
+                  <h3 className={styles.funFactsTitle}>💡 Fun Facts</h3>
+                  <div className={styles.funFactsGrid}>
                     {[
-                      { label: 'Cafés par jour', value: '3 ☕' },
-                      { label: 'Projets GitHub', value: '24+' },
-                      { label: 'Stack préférée', value: 'Next.js' },
-                      { label: 'Animal de code', value: 'Octocat 🐙' },
-                    ].map((fact, index) => (
-                      <div key={index} className="text-center p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl">
-                        <div className="text-2xl font-bold text-primary mb-1">{fact.value}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">{fact.label}</div>
-                      </div>
-                    ))}
+                      { icon: Coffee, label: 'Cafés par jour', value: '3 ☕' },
+                      { icon: GitBranch, label: 'Projets GitHub', value: '24+' },
+                      { icon: Terminal, label: 'Stack préférée', value: 'Next.js' },
+                      { icon: Smile, label: 'Animal de code', value: 'Octocat 🐙' },
+                    ].map((fact) => {
+                      const Icon = fact.icon
+                      return (
+                        <motion.div
+                          key={fact.label}
+                          className={styles.funFactItem}
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
+                        >
+                          <Icon className={styles.funFactIcon} />
+                          <div className={styles.funFactValue}>{fact.value}</div>
+                          <div className={styles.funFactLabel}>{fact.label}</div>
+                        </motion.div>
+                      )
+                    })}
                   </div>
-                </div>
+                </motion.div>
               </div>
             </FadeIn>
           </div>
@@ -172,33 +234,47 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 text-center">
+      <section className={styles.ctaSection}>
+        <div className={styles.container}>
           <FadeIn>
-            <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl font-bold mb-6">
-                Intéressé par mon profil ?
+            <motion.div 
+              className={styles.ctaCard}
+              whileHover={{ y: -8 }}
+              transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
+            >
+              <div className={styles.ctaGlow} />
+              <h2 className={styles.ctaTitle}>
+                Intéressé(e) par mon profil ?
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-10">
-                Que ce soit pour un stage, un projet collaboratif ou simplement échanger sur la tech, 
-                je serais ravie de discuter avec vous !
+              <p className={styles.ctaDescription}>
+                Que ce soit pour un stage, un projet collaboratif ou simplement échanger 
+                sur la tech, je serais ravie de discuter avec vous !
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <a
+              <div className={styles.ctaActions}>
+                <motion.a
                   href="/contact"
-                  className="px-8 py-4 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium text-lg"
+                  className={styles.ctaPrimary}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
                 >
-                  Me contacter
-                </a>
-                <a
+                  <Send className="h-5 w-5" />
+                  <span>Me contacter</span>
+                  <ArrowRight className="h-4 w-4" />
+                </motion.a>
+                <motion.a
                   href="/resume.pdf"
                   download
-                  className="px-8 py-4 border-2 border-primary text-primary dark:text-white rounded-lg hover:bg-primary/10 transition-colors font-medium text-lg"
+                  className={styles.ctaSecondary}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring" as const, stiffness: 400, damping: 10 }}
                 >
-                  Télécharger mon CV
-                </a>
+                  <FileText className="h-5 w-5" />
+                  <span>Télécharger mon CV</span>
+                </motion.a>
               </div>
-            </div>
+            </motion.div>
           </FadeIn>
         </div>
       </section>

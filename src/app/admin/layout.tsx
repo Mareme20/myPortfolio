@@ -1,8 +1,9 @@
 // app/admin/layout.tsx
 'use client'
 
-import { useSession } from "next-auth/react"
-import { redirect } from "next/navigation"
+import { useEffect } from "react"
+import { SessionProvider, useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import { Toaster } from "sonner"
 import AdminSidebar from "@/components/admin/layout/Sidebar"
 import AdminHeader from "@/components/admin/layout/Header"
@@ -13,7 +14,26 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
+  return (
+    <SessionProvider>
+      <AdminLayoutContent>{children}</AdminLayoutContent>
+    </SessionProvider>
+  )
+}
+
+function AdminLayoutContent({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const { data: session, status } = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (status !== "loading" && (!session || session.user.role !== "ADMIN")) {
+      router.replace("/admin/login")
+    }
+  }, [router, session, status])
 
   if (status === "loading") {
     return (
@@ -24,7 +44,7 @@ export default function AdminLayout({
   }
 
   if (!session || session.user.role !== "ADMIN") {
-    redirect("/admin/login")
+    return null
   }
 
   return (

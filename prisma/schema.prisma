@@ -1,12 +1,12 @@
 // prisma/schema.prisma
 datasource db {
   provider = "postgresql"
-  // On ne met PLUS de ligne url ici
 }
 
 generator client {
   provider = "prisma-client-js"
 }
+
 
 
 model User {

@@ -175,7 +175,7 @@ export default function ProjectForm({ project, onSuccess }: ProjectFormProps) {
         </label>
         <TagsInput
           value={watch('technologies')}
-          onChange={(tags) => setValue('technologies', tags)}
+          onChange={(tags: string[]) => setValue('technologies', tags)}
           suggestions={defaultTechnologies}
         />
       </div>

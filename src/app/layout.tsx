@@ -1,15 +1,21 @@
-// app/layout.tsx
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/animations/ui/Navbar'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
-
-const inter = Inter({ subsets: ['latin'] })
+import Footer from '@/components/layout/Footer'
+import styles from './layout.module.css'
 
 export const metadata: Metadata = {
-  title: 'Marième Ndiaye - Étudiante en Génie Logiciel',
-  description: 'Portfolio de Marième Ndiaye , étudiante en 3ème année de génie logiciel. Développeuse full-stack passionnée.',
+  title: 'Marième Ndiaye | Portfolio Ingénieure Logiciel',
+  description: 'Portfolio professionnel de Marième Ndiaye, développeuse full-stack orientée produit, performance et qualité logicielle.',
+  keywords: ['développeuse full-stack', 'Next.js', 'React', 'TypeScript', 'portfolio'],
+  authors: [{ name: 'Marième Ndiaye' }],
+  openGraph: {
+    title: 'Marième Ndiaye | Portfolio Ingénieure Logiciel',
+    description: 'Portfolio professionnel de Marième Ndiaye, développeuse full-stack.',
+    type: 'website',
+    locale: 'fr_FR',
+  },
 }
 
 export default function RootLayout({
@@ -18,16 +24,26 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning>
-      <body className={`${inter.className} bg-white dark:bg-gray-900 transition-colors`}>
+    <html lang="fr" suppressHydrationWarning className={styles.html}>
+      <body className={`${styles.body} text-slate-900 dark:text-slate-100 antialiased`}>
         <ThemeProvider>
-          <Navbar />
-          <main className="min-h-screen pt-16">
-            {children}
-          </main>
-          <footer className="border-t py-8 text-center text-gray-600 dark:text-gray-400">
-            <p>© {new Date().getFullYear()} Marième Ndiaye . Tous droits réservés.</p>
-          </footer>
+          <div className={styles.layout}>
+            {/* Effets d'arrière-plan */}
+            <div className={styles.background}>
+              <div className={styles.gradientBg} />
+              <div className={styles.gradientOrb1} />
+              <div className={styles.gradientOrb2} />
+              <div className={styles.gridPattern} />
+              <div className={styles.grain} />
+            </div>
+
+            {/* Contenu principal */}
+            <div className={styles.content}>
+              <Navbar />
+              <main className={styles.main}>{children}</main>
+              <Footer />
+            </div>
+          </div>
         </ThemeProvider>
       </body>
     </html>

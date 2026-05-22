@@ -1,8 +1,7 @@
 // app/api/admin/projects/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { prisma } from '@/lib/prisma'
-import { authOptions } from '@/lib/auth'
+
+export const dynamic = 'force-dynamic'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -11,16 +10,22 @@ interface RouteParams {
 // GET: Récupérer un projet
 export async function GET(
   request: NextRequest,
-  { params }: RouteParams
+  context: RouteParams
 ) {
   try {
+    const [{ getServerSession }, { authOptions }, { prisma }] = await Promise.all([
+      import('next-auth'),
+      import('@/lib/auth'),
+      import('@/lib/prisma'),
+    ])
+
     const session = await getServerSession(authOptions)
     
     if (!session || session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
     }
 
-    const { id } = await params
+    const { id } = await context.params
     const project = await prisma.project.findUnique({
       where: { id }
     })
@@ -46,16 +51,22 @@ export async function GET(
 // PUT: Mettre à jour un projet
 export async function PUT(
   request: NextRequest,
-  { params }: RouteParams
+  context: RouteParams
 ) {
   try {
+    const [{ getServerSession }, { authOptions }, { prisma }] = await Promise.all([
+      import('next-auth'),
+      import('@/lib/auth'),
+      import('@/lib/prisma'),
+    ])
+
     const session = await getServerSession(authOptions)
     
     if (!session || session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
     }
 
-    const { id } = await params
+    const { id } = await context.params
     const data = await request.json()
 
     const project = await prisma.project.update({
@@ -80,16 +91,22 @@ export async function PUT(
 // DELETE: Supprimer un projet
 export async function DELETE(
   request: NextRequest,
-  { params }: RouteParams
+  context: RouteParams
 ) {
   try {
+    const [{ getServerSession }, { authOptions }, { prisma }] = await Promise.all([
+      import('next-auth'),
+      import('@/lib/auth'),
+      import('@/lib/prisma'),
+    ])
+
     const session = await getServerSession(authOptions)
     
     if (!session || session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
     }
 
-    const { id } = await params
+    const { id } = await context.params
 
     await prisma.project.delete({
       where: { id }
